@@ -58,14 +58,13 @@ def validar_texto(text, caracteres_permitidos):
 def validar_data():
     while True:
         try:
-            data = str(input('Data de conclusão prevista (DD/MM/AAAA): '))
-            data_validada = datetime.strptime(data, '%d/%m/%Y')
-        except ValueError:
-            erro('Digite uma data no formato válido!', False)
+            data = input('Data de conclusão (DD/MM/AAAA): ')
+            data_validada = datetime.strptime(data, "%d/%m/%Y")
         except KeyboardInterrupt:
             erro('\nOperação cancelada pelo usuário', False)
-            return False
+            break
+        except ValueError:
+            erro('Formato de data incorreto')
         else:
-            return str(data_validada)
-
-
+            data_salva = datetime.strftime(data_validada, "%d/%m/%Y")
+            return data_salva

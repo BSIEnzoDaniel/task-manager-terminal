@@ -2,11 +2,12 @@ from funcoes_menu import *
 from funcoes_tratamento import validar_entrada_int
 from funcoes_arquivo import carregar_tarefas
 from funcoes_visual import topo
+
 acoes = {
-    1: 'ADICIONAR NOVAS TAREFAS',
-    2: 'LISTAR TAREFAS ATUAIS',
-    3: 'MARCAR / DESMARCAR',
-    4: 'REMOVER TAREFA',
+    1: 'ADIOCIONAR TAREFAS',
+    2: 'LISTAR TAREFAS',
+    3: 'ATUALIZAR TAREFA',
+    4: 'REMOVER TAREFAS',
     0: 'SAIR'
 }
 

@@ -14,11 +14,15 @@ def contagem_dinamica_tarefas(lista): #Conta dinamicamente as tarefas
 def add_tarefa(lista): #Menu: 1
     topo('ADICIONANDO TAREFAS...')
     while True:
-        nome_tarefa = validar_texto('Nome da tarefa: ', 35)
+        nome_tarefa = validar_texto('Nome da tarefa: ', 25)
         if not nome_tarefa:
+            break
+        data_tarefa = validar_data()
+        if not data_tarefa:
             break
         tarefa = {
             'nome': nome_tarefa.upper(),
+            'data': data_tarefa,
             'status': False
         }
         lista.append(tarefa)
@@ -32,11 +36,12 @@ def add_tarefa(lista): #Menu: 1
 
 
 
-def listagem(lista): #Menu: 2
+def listagem(lista, texto='LISTA DE TAREFAS'): #Menu: 2
     if lista:
-        topo('LISTANDO TAREFAS...')
+        topo(texto)
         for indice, task in enumerate(lista):
-            print(f' {indice + 1}. {task['nome']:<35}' , end=' ')
+            print(f' {indice + 1}. {task['nome']:<25}' , end=' ')
+            print(f'{task['data'][:5]}', end=' ')
             if task['status']:
                 print('[\033[32m✔\033[m]')
             else:
@@ -44,12 +49,11 @@ def listagem(lista): #Menu: 2
     else:
         msg_listavazia()
     print()
-#Mostrar a data na listagem
 
 
 def status(lista): #Menu: 3
     if lista:
-        listagem(lista)
+        listagem(lista, 'MARCAR / DESMARCAR TAREFAS')
         opcao = validar_entrada_int('Qual tarefa deseja alterar? ', len(lista))
         if not opcao:
             return
@@ -72,12 +76,20 @@ def status(lista): #Menu: 3
 
 def remocao(lista): #Menu: 4
     if lista:
-        listagem(lista)
-        opcao = validar_entrada_int('Qual tarefa deseja excluir? ', len(lista))
-        indice = opcao - 1
-        del lista[indice]
-        print(f'Tarefa {opcao} removida!')
-        salvar_tarefas(lista)
+        while True:
+            listagem(lista, 'REMOVER TAREFAS')
+            opcao = validar_entrada_int('Qual tarefa deseja excluir? ', len(lista))
+            indice = opcao - 1
+            del lista[indice]
+            print(f'Tarefa {opcao} removida!')
+            listagem(lista, 'LISTA ATUAL')
+            salvar_tarefas(lista)
+            if len(lista) == 0:
+                break
+            resposta = validar_caractere('Deseja continuar? (S/N) ', 'SN')
+            print()
+            if resposta == 'N':
+                break
     else:
         msg_listavazia()
 
