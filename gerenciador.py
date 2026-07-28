@@ -1,6 +1,6 @@
 from funcoes_menu import *
 from funcoes_tratamento import validar_entrada_int
-from funcoes_arquivo import carregar_tarefas
+from funcoes_arquivo import sincronizar_tarefas, limpeza_tarefas
 from funcoes_visual import topo
 
 acoes = {
@@ -11,9 +11,12 @@ acoes = {
     0: 'SAIR'
 }
 
-lista_tarefas = carregar_tarefas()
+data_hoje = date.today()
+lista_tarefas = sincronizar_tarefas()
+
 
 while True:
+    lista_tarefas = limpeza_tarefas(lista_tarefas, data_hoje)
     topo('Gerenciador de Tarefas')
     total, pendentes, concluidas = contagem_dinamica_tarefas(lista_tarefas)
     print(f'\033[33mTotal\033[m: {total} | \033[31mPendentes\033[m: {pendentes} | \033[32mConcluídas\033[m: {concluidas}')

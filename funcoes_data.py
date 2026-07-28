@@ -1,5 +1,6 @@
 from funcoes_visual import erro
 from datetime import date, datetime
+
 def validar_data():
     data_atual = date.today()
     while True:
@@ -18,26 +19,32 @@ def validar_data():
             else:
                 return data
 
-def controle_prazo(concluida, data_tarefa):
-    data_hoje = date.today()
+def controle_prazo(concluida, data_hoje, data_tarefa):
     if concluida:
         print('[\033[32m✔\033[m]')
     else:
+        print('[ ]', end=' ')
         atraso = data_hoje > data_tarefa
         diferenca_datas = data_tarefa - data_hoje
         dias = abs(diferenca_datas.days)
-        if dias > 7:
-            semanas = dias // 7
-            if semanas > 4:
-                msg_prazo = '1+ mês'
-            else:
-                msg_prazo = f'{semanas} sem.'
-        elif dias > 2:
-            msg_prazo = f'{dias} d.'
-        elif dias > 0:
-            msg_prazo = f'\033[33m{dias} d.\033[m'
-        else:
-            msg_prazo = '\033[33mHoje\033[m'
+        match dias:
+            case 0:
+                texto_tempo = 'Hoje'
+            case 1:
+                texto_tempo = 'Amanhã'
+            case _:
+                if dias > 7:
+                    semanas = dias // 7
+                    if semanas > 4:
+                        texto_tempo = '1+ mês'
+                    else:
+                        texto_tempo = f'{semanas} sem.'
+                else:
+                    texto_tempo = f'{dias} d.'
         if atraso:
-            msg_prazo = f'\033[31m{msg_prazo}\033[m'
-        print(f'[ ] ({msg_prazo})')
+            print(f'(\033[31m{texto_tempo}\033[m)')
+        else:
+            if dias <= 2:
+                print(f'(\033[33m{texto_tempo}\033[m)')
+            else:
+                print(f'({texto_tempo})')

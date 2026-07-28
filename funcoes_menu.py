@@ -1,6 +1,8 @@
 from funcoes_tratamento import *
-from funcoes_arquivo import *
+from funcoes_arquivo import salvar_tarefas
 from funcoes_data import *
+from datetime import date, datetime
+
 def contagem_dinamica_tarefas(lista): #Conta dinamicamente as tarefas
     total = concluidas = 0
     for item in lista:
@@ -37,13 +39,14 @@ def add_tarefa(lista): #Menu: 1
 
 
 def listagem(lista, texto='LISTA DE TAREFAS'): #Menu: 2
+    data_hoje = date.today()
     if lista:
         topo(texto)
         for indice, task in enumerate(lista):
             data_tarefa = datetime.strptime(task['data'], "%d/%m/%Y").date()
             print(f'{indice + 1}. {task['nome']}' , end=' - ')
             print(f'{task['data'][:5]}', end=' ')
-            controle_prazo(task['status'], data_tarefa)
+            controle_prazo(task['status'], data_hoje, data_tarefa)
     else:
         msg_listavazia()
     print()

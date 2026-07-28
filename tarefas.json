@@ -15,18 +15,8 @@
         "status": false
     },
     {
-        "nome": "ATUALIZAR GIT",
-        "data": "27/07/2026",
-        "status": false
-    },
-    {
-        "nome": "BEBER \u00c1GUA",
-        "data": "27/07/2026",
-        "status": true
-    },
-    {
-        "nome": "N\u00c3O PROCRASTINAR",
-        "data": "01/01/2026",
+        "nome": "COMMITAR MUDAN\u00c7AS",
+        "data": "28/07/2026",
         "status": false
     }
 ]
