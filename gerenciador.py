@@ -4,7 +4,7 @@ from funcoes_arquivo import carregar_tarefas
 from funcoes_visual import topo
 
 acoes = {
-    1: 'ADIOCIONAR TAREFAS',
+    1: 'ADICIONAR TAREFAS',
     2: 'LISTAR TAREFAS',
     3: 'ATUALIZAR TAREFA',
     4: 'REMOVER TAREFAS',
@@ -12,6 +12,7 @@ acoes = {
 }
 
 lista_tarefas = carregar_tarefas()
+
 while True:
     topo('Gerenciador de Tarefas')
     total, pendentes, concluidas = contagem_dinamica_tarefas(lista_tarefas)

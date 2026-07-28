@@ -1,5 +1,5 @@
 from funcoes_visual import *
-from datetime import datetime
+from datetime import datetime, date
 
 
 def validar_entrada_int(text, maximo, minimo=1):
@@ -55,16 +55,3 @@ def validar_texto(text, caracteres_permitidos):
 
 
 
-def validar_data():
-    while True:
-        try:
-            data = input('Data de conclusão (DD/MM/AAAA): ')
-            data_validada = datetime.strptime(data, "%d/%m/%Y")
-        except KeyboardInterrupt:
-            erro('\nOperação cancelada pelo usuário', False)
-            break
-        except ValueError:
-            erro('Formato de data incorreto')
-        else:
-            data_salva = datetime.strftime(data_validada, "%d/%m/%Y")
-            return data_salva

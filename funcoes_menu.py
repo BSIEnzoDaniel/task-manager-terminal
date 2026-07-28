@@ -1,6 +1,6 @@
 from funcoes_tratamento import *
 from funcoes_arquivo import *
-
+from funcoes_data import *
 def contagem_dinamica_tarefas(lista): #Conta dinamicamente as tarefas
     total = concluidas = 0
     for item in lista:
@@ -14,7 +14,7 @@ def contagem_dinamica_tarefas(lista): #Conta dinamicamente as tarefas
 def add_tarefa(lista): #Menu: 1
     topo('ADICIONANDO TAREFAS...')
     while True:
-        nome_tarefa = validar_texto('Nome da tarefa: ', 25)
+        nome_tarefa = validar_texto('Nome da tarefa: ', 20)
         if not nome_tarefa:
             break
         data_tarefa = validar_data()
@@ -26,7 +26,7 @@ def add_tarefa(lista): #Menu: 1
             'status': False
         }
         lista.append(tarefa)
-        print('Tarefa adiconada!')
+        print('\033[32mTarefa adiconada!\033[m')
         resposta = validar_caractere('Deseja continuar? (S/N) ', 'SN')
         print()
         if resposta == 'N':
@@ -40,12 +40,10 @@ def listagem(lista, texto='LISTA DE TAREFAS'): #Menu: 2
     if lista:
         topo(texto)
         for indice, task in enumerate(lista):
-            print(f' {indice + 1}. {task['nome']:<25}' , end=' ')
+            data_tarefa = datetime.strptime(task['data'], "%d/%m/%Y").date()
+            print(f'{indice + 1}. {task['nome']}' , end=' - ')
             print(f'{task['data'][:5]}', end=' ')
-            if task['status']:
-                print('[\033[32m✔\033[m]')
-            else:
-                print(f'[ ]')
+            controle_prazo(task['status'], data_tarefa)
     else:
         msg_listavazia()
     print()
@@ -81,7 +79,7 @@ def remocao(lista): #Menu: 4
             opcao = validar_entrada_int('Qual tarefa deseja excluir? ', len(lista))
             indice = opcao - 1
             del lista[indice]
-            print(f'Tarefa {opcao} removida!')
+            print(f'\033[31mTarefa {opcao} removida!\033[m')
             listagem(lista, 'LISTA ATUAL')
             salvar_tarefas(lista)
             if len(lista) == 0:
