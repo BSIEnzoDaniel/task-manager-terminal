@@ -35,10 +35,14 @@ def controle_prazo(concluida, data_hoje, data_tarefa):
             case _:
                 if dias > 7:
                     semanas = dias // 7
-                    if semanas > 4:
+                    if semanas >= 4:
                         texto_tempo = '1+ mês'
                     else:
-                        texto_tempo = f'{semanas} sem.'
+                        dias = dias % 7
+                        if dias != 0:
+                            texto_tempo = f'{semanas} sem. {dias} d.'
+                        else:
+                            texto_tempo = f'{semanas} sem.'
                 else:
                     texto_tempo = f'{dias} d.'
         if atraso:
